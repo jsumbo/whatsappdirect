@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea"; // Import Textarea component
 import { useToast } from "@/components/ui/use-toast";
 import { countries } from "@/utils/countries";
 import { isValidPhoneNumber, formatPhoneNumber } from "@/utils/validation";
@@ -114,14 +115,13 @@ export const WhatsAppForm = () => {
 
       <div className="space-y-2">
         <Label htmlFor="message">Message</Label>
-        <Input
+        <Textarea
           id="message"
-          type="text"
-          placeholder="Enter your message"
+          placeholder="Write your message here.."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           className="w-full"
-          rows={4}
+          rows={4} 
         />
       </div>
 
