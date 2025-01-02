@@ -7,7 +7,7 @@ const Index = () => {
         <div className="text-center space-y-2">
           <h1 className="text-2xl font-bold tracking-tight">WhatsApp Direct</h1>
           <p className="text-gray-500">
-            Send a message without saving the contact
+            Send a message without the need to save contact
           </p>
         </div>
         <WhatsAppForm />
