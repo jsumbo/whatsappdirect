@@ -16,13 +16,14 @@ import { isValidPhoneNumber, formatPhoneNumber } from "@/utils/validation";
 export const WhatsAppForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted with:", { selectedCountry, phoneNumber });
+    console.log("Form submitted with:", { selectedCountry, phoneNumber, message });
 
     if (!selectedCountry) {
       toast({
@@ -46,7 +47,7 @@ export const WhatsAppForm = () => {
     setIsLoading(true);
     const country = countries.find((c) => c.code === selectedCountry);
     const fullNumber = `${country?.dial_code}${formattedNumber}`;
-    const whatsappUrl = `https://wa.me/${fullNumber}`;
+    const whatsappUrl = `https://wa.me/${fullNumber}?text=${encodeURIComponent(message)}`;
 
     console.log("Redirecting to:", whatsappUrl);
     
@@ -59,8 +60,7 @@ export const WhatsAppForm = () => {
 
   const filteredCountries = countries.filter((country) =>
     country.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    country.dial_code.includes(searchQuery) ||
-    country.code.toLowerCase().includes(searchQuery.toLowerCase())
+    country.dial_code.includes(searchQuery)
   );
 
   return (
@@ -109,6 +109,19 @@ export const WhatsAppForm = () => {
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
           className="w-full"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="message">Message</Label>
+        <Input
+          id="message"
+          type="text"
+          placeholder="Enter your message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          className="w-full"
+          rows={4}
         />
       </div>
 
